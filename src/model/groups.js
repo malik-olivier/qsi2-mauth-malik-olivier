@@ -30,6 +30,13 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true
     }
   );
+  
+  Groups.associate = models => {
+    Groups.belongsToMany(models.Users, { through: 'Member' });
+    // Groups.addUsers(models.Users, { through: { role: 'Member' }});
+  };
+
+       
   return Groups;
 };
 
