@@ -7,7 +7,7 @@
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" ",
     "eslint": "eslint . --fix",
     "dev": "env-cmd .env node ./src",
-    "start": "node ./src"
+    "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
