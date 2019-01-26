@@ -6,7 +6,8 @@
   "scripts": {
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"./src/**/*.js\" ",
     "eslint": "eslint . --fix",
-    "dev": "env-cmd .env node ./src"
+    "dev": "env-cmd .env node ./src",
+    "start": "node ./src"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,10 @@
   },
   "dependencies": {
     "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "helmet": "^3.15.0",
+    "hpp": "^0.2.2",
     "jwt-simple": "^0.5.5",
     "lodash.omit": "^4.5.0",
     "passport": "^0.4.0",

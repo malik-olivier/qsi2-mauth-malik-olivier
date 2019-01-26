@@ -1,15 +1,23 @@
+const hpp = require('hpp');
 const express = require('express');
+const bodyParser = require('body-parser');
+const helmet = require('helmet')
+
 const { apiUsers, apiUsersProtected } = require('./users');
 const { apiGroupProtected } = require('./groups');
 const { isAuthenticated, initAuth } = require('../controller/auth');
 // create an express Application for our api
 const api = express();
 initAuth();
+api.use(hpp());
+api.use(helmet())
 
 // apply a middelware to parse application/json body
 api.use(express.json({ limit: '1mb' }));
 // create an express router that will be mount at the root of the api
 const apiRoutes = express.Router();
+
+
 apiRoutes
   // test api
   .get('/', (req, res) =>
