@@ -19,20 +19,32 @@ const createUser = ({ firstName, lastName, email, password }) =>
   );
 
   
-const updateUser = ({ id,firstName, lastName, email, password }) =>
-Users.update({
-  email,
-  firstName: firstName,
-  lastName: lastName,
-  hash: password
-},{
-   where: {id: id} ,
-   returning : true,
-   plain: true}
-).then(user => {
-    return user && !user.deletedAt
-    ? omit(user,Users.all) : Promise.reject(new Error('UNKOWN OR DELETED USER'))
-});
+const updateUser = ({ id,firstName, lastName, email, password }) => {
+ return Users.findOne({
+    where: {
+      id
+    }
+  }).then(user => {
+    if(firstName != null) user.firstName = firstName
+    if(lastName != null) user.lastName = lastName
+    if(email != null) user.email = email
+    if(password != null) user.password = password
+    return Users.update({
+      email : user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      hash: user.password
+    },{
+       where: {id: id} ,
+       returning : true,
+       plain: true}
+    ).then(user => {
+        return user && !user.deletedAt
+        ? omit(user,Users.all) : Promise.reject(new Error('UNKOWN OR DELETED USER'))
+    });
+  });
+}
+
 
 const deleteUser = ({ id }) => {
   logger.info("[CONTROLLER](delete user) deleting user with id : "+id)

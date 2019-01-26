@@ -97,12 +97,7 @@ apiUsersProtected.get('/', (req, res) =>
 
 apiUsersProtected.put('/', (req, res) => {
   req.body.id = req.user.id;
-  !req.body.email || !req.body.password
-    ? res.status(400).send({
-        success: false,
-        message: 'email and password are required'
-      })
-    : updateUser(req.body)
+      updateUser(req.body)
         .then(user => {
           return res.status(201).send({
             success: true,
