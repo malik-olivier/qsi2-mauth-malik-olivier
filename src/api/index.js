@@ -1,7 +1,9 @@
 const hpp = require('hpp');
 const express = require('express');
 const bodyParser = require('body-parser');
-const helmet = require('helmet')
+const helmet = require('helmet');
+const enforce = require('express-sslify');
+
 
 const { apiUsers, apiUsersProtected } = require('./users');
 const { apiGroupProtected } = require('./groups');
@@ -11,6 +13,7 @@ const api = express();
 initAuth();
 api.use(hpp());
 api.use(helmet())
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 
 // apply a middelware to parse application/json body
 api.use(express.json({ limit: '1mb' }));
