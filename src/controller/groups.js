@@ -66,10 +66,28 @@ const removeMemberByOwner = ({ userId , groupId ,ownerId}) => {
   );
 }
 
+const isInGroup = (userId , groupId) => {
+  logger.info("[CONTROLLER](isInGroup) userId : "+  userId);
+  logger.info("[CONTROLLER](isInGroup) groupId : "+  groupId);
+  return Groups.findOne({where :{id : groupId}})
+  .then(group => {
+      if(group == null) {
+        return Promise.reject(new Error("An error occurred while getting a group"));
+      }else {
+        return group.getUsers().then(users=>{
+            var x = users.filter(user => user.id = userId).length;
+            return (x > 0 ? Promise.resolve(true) : Promise.reject(new Error("The user isn't in group"))) 
+        });
+      }
+    }
+  );
+}
+
 module.exports = {
     createGroup,
     getGroupsByOwner,
     getGroups,
     addMemberByOwner,
+    isInGroup,
     removeMemberByOwner
 };

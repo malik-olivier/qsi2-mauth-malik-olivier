@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jwt-simple');
-const { createGroup,getGroupsByOwner,addMemberByOwner,getGroups,removeMemberByOwner} = require('../controller/groups');
+const { isInGroup,createGroup,getGroupsByOwner,addMemberByOwner,getGroups,removeMemberByOwner} = require('../controller/groups');
 const logger = require('../logger');
 
 const apiGroupProtected = express.Router();

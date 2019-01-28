@@ -85,6 +85,7 @@ module.exports = (sequelize, DataTypes) => {
   
 Users.associate = models => {
   Users.hasOne(models.Groups, { foreignKey: 'owner_id', as: 'Owner' });
+  Users.hasOne(models.Posts, { foreignKey: 'user_id', as: 'User' });
   Users.belongsToMany(models.Groups, { through: 'Member' });
 };
 

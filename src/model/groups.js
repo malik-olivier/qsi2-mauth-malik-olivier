@@ -33,10 +33,9 @@ module.exports = (sequelize, DataTypes) => {
   
   Groups.associate = models => {
     Groups.belongsToMany(models.Users, { through: 'Member' });
-    // Groups.addUsers(models.Users, { through: { role: 'Member' }});
+    Groups.hasOne(models.Posts, { foreignKey: 'group_id', as: 'Group' });
   };
 
-       
   return Groups;
 };
 
