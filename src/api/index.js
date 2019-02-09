@@ -1,8 +1,9 @@
 const hpp = require('hpp');
+const cors = require('cors')
 const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
-const enforce = require('express-sslify');
+// const enforce = require('express-sslify');
 
 
 const { apiUsers, apiUsersProtected } = require('./users');
@@ -12,9 +13,10 @@ const { isAuthenticated, initAuth } = require('../controller/auth');
 // create an express Application for our api
 const api = express();
 initAuth();
+api.use(cors())
 api.use(hpp());
 api.use(helmet());
-api.use(enforce.HTTPS({ trustProtoHeader: true }));
+// api.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 // apply a middelware to parse application/json body
 api.use(express.json({ limit: '1mb' }));
